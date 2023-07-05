@@ -1,10 +1,10 @@
 # alx-interview
 
-This repository contains my solutions for the ALX interview preparation. Each solution is provided in a separate file and covers various topics related to software engineering and programming.
+This directory contains my solutions for the ALX interview preparation. Each solution is provided in a separate file and covers various topics related to software engineering and programming.
 
 ## Contents
 
-- [Pascal's Triangle](0x00-pascal_triangle.py): This Python script generates Pascal's Triangle based on the number of rows provided by the user.
+- [Pascal's Triangle](0x00-pascal_triangle): This Python script generates Pascal's Triangle based on the number of rows provided by the user.
 
 ## Getting Started
 
