@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-"""
-pascal_triangle function
-"""
+""" Module holding pascal triangle function """
 
 
 def pascal_triangle(n):
+    """
+    pascal_triangle function that takes the no of rows (n) and return
+    the list of lists representing the Pascal triangle
+    """
     if n <= 0:
         return []
     total = [[1], [1, 1]]
