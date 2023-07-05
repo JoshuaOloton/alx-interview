@@ -5,6 +5,8 @@ pascal_triangle function
 
 
 def pascal_triangle(n):
+    if n <= 0:
+        return []
     total = [[1], [1, 1]]
     for i in range(n-2):
         current = total[len(total)-1]
