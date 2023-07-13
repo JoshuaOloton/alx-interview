@@ -19,14 +19,15 @@ def minOperations(n):
     """
     if n < 1:
         return 0
-    i = 2
     num_operations = 0
-    while i * i <= n:
-        if n % i:
-            i += 1
-        else:
+    i = 2
+    while True:
+        if n % i == 0:
+            num_operations += 1
             n //= i
-            num_operations += i
-    if n > 1:
-        num_operations += n
+        else:
+            i += 1
+        if n == 1:
+            break
+
     return num_operations
