@@ -23,7 +23,7 @@ def minOperations(n):
     i = 2
     while True:
         if n % i == 0:
-            num_operations += 1
+            num_operations += i
             n //= i
         else:
             i += 1
