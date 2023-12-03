@@ -1,28 +1,18 @@
 #!/usr/bin/python3
 """ Island Perimeter """
 
-def amount_of_water(row, col, grid):
-    amount = 0
-    directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-    for i, j in directions:
-        try:
-            if grid[row + i][col + j] == 0:
-               amount += 1
-        except IndexError:
-           amount += 1
-
-    return amount
-        
-            
-    
-
 def island_perimeter(grid):
     """ Return the perimeter of the island described in grid """
     perimeter = 0
-    for row in range(len(grid)):
-        for col in range(len(grid[0])):
-            if grid[row][col] == 1:
-                perimeter += amount_of_water(row, col, grid)
-
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            if grid[i][j] == 1:
+                if i == 0 or grid[i - 1][j] == 0:
+                    perimeter += 1
+                if j == 0 or grid[i][j - 1] == 0:
+                    perimeter += 1
+                if i == len(grid) - 1 or grid[i + 1][j] == 0:
+                    perimeter += 1
+                if j == len(grid[i]) - 1 or grid[i][j + 1] == 0:
+                    perimeter += 1
     return perimeter
-                
