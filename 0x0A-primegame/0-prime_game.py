@@ -16,21 +16,30 @@ def is_prime(num):
     """
     if num < 2:
         return False
-    for i in range(2, int(num**(1/2)) + 1):
+    for i in range(2, int(num**0.5) + 1):
         if num % i == 0:
             return False
     return True
 
 
-def get_primes(n):
+def primeNos(n):
     """
-    Get a list of prime numbers up to a given number.
+    Returns a list of prime numbers between 1 and n inclusive.
 
-    Parameters:
-    - n (int): The upper limit for generating prime numbers.
+    Args:
+        n (int): The upper boundary of the range (inclusive).
+        The lower boundary is always 1.
 
     Returns:
-    - list: A list of prime numbers up to n.
+        list: A list of prime numbers between 1 and n.
+
+    Examples:
+        >>> primeNos(10)
+        [2, 3, 5, 7]
+
+    Note:
+        The function uses the is_prime helper
+        function to identify prime numbers.
     """
     primes = []
     for i in range(2, n + 1):
@@ -39,66 +48,34 @@ def get_primes(n):
     return primes
 
 
-def optimal_move(nums):
-    """
-    Determine the optimal move for a player given a set of numbers.
-
-    Parameters:
-    - nums (list): The set of numbers to choose from.
-
-    Returns:
-    - list: The set of numbers after the optimal move is made.
-    """
-    primes = get_primes(max(nums))
-    for prime in primes:
-        if any(num % prime == 0 for num in nums):
-            return [num for num in nums if num % prime != 0]
-    return []
-
-
 def isWinner(x, nums):
     """
-    Determine the winner of each round in a game played by Maria and Ben.
+    Determines the winner of the Prime Game for a
+    given number of rounds and upper limits.
 
-    Parameters:
-    - x (int): The number of rounds.
-    - nums (list): An array of n for each round.
+    Args:
+        x (int): The number of rounds of the game.
+        nums (list): A list of upper limits for each round.
 
     Returns:
-    - str or None: The name of the player that won the most rounds.
-                  Returns "Maria" or "Ben" if there is a clear winner.
-                  Returns None if the winner cannot be determined.
+        str or None: The name of the winner (Maria or Ben)
+        or None if the winner cannot be determined.
+
+    Raises:
+        ValueError: If input arguments are invalid
+        (x is None, nums is None, x is not positive, or nums is an empty list).
     """
-
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        rounds = [i for i in range(1, n + 1)]
-        maria_turn = True
-
-        while rounds:
-            if maria_turn:
-                moves = optimal_move(rounds)
-                if moves:
-                    rounds = moves
-                    maria_turn = not maria_turn
-                    continue
-                else:
-                    ben_wins += 1
-                    break
-            else:
-                moves = optimal_move(rounds)
-                if moves:
-                    rounds = moves
-                    maria_turn = not maria_turn
-                    continue
-                else:
-                    maria_wins += 1
-                    break
-
-    if maria_wins < ben_wins:
-        return "Ben"
-    elif maria_wins > ben_wins:
-        return "Maria"
+    if x is None or nums is None or x <= 0 or nums == []:
+        return None
+    maria, ben = 0, 0
+    for i in range(x):
+        prime_numbers = primeNos(nums[i])
+        if len(prime_numbers) % 2 == 0:
+            ben += 1
+        else:
+            maria += 1
+    if maria < ben:
+        return 'Ben'
+    elif maria > ben:
+        return 'Maria'
     return None
