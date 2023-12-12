@@ -19,47 +19,47 @@ if __name__ == '__main__':
         exit(1)
 
     solutions = []
-    placed_queens = []  # coordinates format [row, column]
+    queens_placed = []  # coordinates format [row, column]
     stop = False
     r = 0
     c = 0
 
     # row iteration
     while r < n:
-        goback = False
+        re_start = False
         # column iteration
         while c < n:
             # check is current column is safe
             safe = True
-            for cord in placed_queens:
-                col = cord[1]
-                if (col == c or col + (r-cord[0]) == c or
-                        col - (r-cord[0]) == c):
+            for cordinate in queens_placed:
+                col = cordinate[1]
+                if (col == c or col + (r-cordinate[0]) == c or
+                        col - (r-cordinate[0]) == c):
                     safe = False
                     break
 
             if not safe:
                 if c == n - 1:
-                    goback = True
+                    re_start = True
                     break
                 c += 1
                 continue
 
             # place queen
-            cords = [r, c]
-            placed_queens.append(cords)
+            cordinates = [r, c]
+            queens_placed.append(cordinates)
             # if last row, append solution and reset all to last unfinished row
             # and last safe column in that row
             if r == n - 1:
-                solutions.append(placed_queens[:])
-                for cord in placed_queens:
-                    if cord[1] < n - 1:
-                        r = cord[0]
-                        c = cord[1]
+                solutions.append(queens_placed[:])
+                for cordinate in queens_placed:
+                    if cordinate[1] < n - 1:
+                        r = cordinate[0]
+                        c = cordinate[1]
                 for i in range(n - r):
-                    placed_queens.pop()
+                    queens_placed.pop()
                 if r == n - 1 and c == n - 1:
-                    placed_queens = []
+                    queens_placed = []
                     stop = True
                 r -= 1
                 c += 1
@@ -70,11 +70,11 @@ if __name__ == '__main__':
             break
         # on fail: go back to previous row
         # and continue from last safe column + 1
-        if goback:
+        if re_start:
             r -= 1
             while r >= 0:
-                c = placed_queens[r][1] + 1
-                del placed_queens[r]  # delete previous queen coordinates
+                c = queens_placed[r][1] + 1
+                del queens_placed[r]  # delete previous queen coordinates
                 if c < n:
                     break
                 r -= 1
